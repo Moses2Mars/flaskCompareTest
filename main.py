@@ -22,7 +22,6 @@ async def form_example():
         #CV file from the request
         user_cv = request.files['file']
         extension = user_cv.filename.split('.')
-
         #if type is PDF
         if extension[-1] == 'pdf':
             #change from docx format to text (string) format
@@ -30,7 +29,7 @@ async def form_example():
         else: 
             #if type is doc/docx
             resume = docx2txt.process(user_cv)  
-        
+
         #making sure job description is in string format
         text_resume = str(resume)
         text_resume = cleanString(text_resume)
@@ -54,8 +53,7 @@ async def form_example():
         matchPercentage = cosine_similarity(count_matrix)[0][1] * 100
         matchPercentage = round(matchPercentage, 2) # round to two decimal
 
-        #the match percentage should be saved in the database along with the job_uuid, and the user email
-        print('Your resume matches about '+ str(matchPercentage)+ " percent of the job description.")
+        print(str(matchPercentage))
         return str(matchPercentage)
 
 
